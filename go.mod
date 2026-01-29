@@ -1,3 +1,3 @@
-module github.com/rthornton128/goncurses
+module github.com/clstrfsck/goncurses
 
 go 1.15
