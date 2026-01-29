@@ -183,6 +183,15 @@ func (w *Window) DelChar() error {
 	return nil
 }
 
+// InsDelLines inserts or deletes lines at the current cursor position. A
+// positive number inserts lines, a negative number deletes lines.
+func (w *Window) InsDelLines(n int) error {
+	if C.winsdelln(w.win, C.int(n)) == C.ERR {
+		return errors.New("failed to insert/delete lines")
+	}
+	return nil
+}
+
 // MoveDelChar deletes the character at the given cursor coordinates, moving all
 // characters to the right of that position one space to the left and appends
 // a blank character at the end.
@@ -282,6 +291,16 @@ func (w *Window) InChar() Char {
 // window
 func (w *Window) MoveInChar(y, x int) Char {
 	return Char(C.mvwinch(w.win, C.int(y), C.int(x)))
+}
+
+// InsChar inserts the given character at the current cursor position,
+// moving all characters to the right of that position one space to the right
+func (w *Window) InsChar(ach Char) error {
+	if err := C.winsch(w.win, C.chtype(ach)); err != C.OK {
+		return errors.New("an error occurred when trying to insert " +
+			"character")
+	}
+	return nil
 }
 
 // IsCleared returns the value set in ClearOk
