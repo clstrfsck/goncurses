@@ -4,7 +4,7 @@ package goncurses_test
 import (
 	"testing"
 
-	"github.com/rthornton128/goncurses"
+	"github.com/clstrfsck/goncurses"
 )
 
 func TestInit(t *testing.T) {
